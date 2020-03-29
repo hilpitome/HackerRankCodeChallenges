@@ -32,7 +32,7 @@ public class BiggerIsGreaterTest {
 
 //                System.out.println(expected+ " "+w);
 
-                assertEquals("testing "+w,expected,BiggerIsGreater.biggerIsGreater(w));
+                assertEquals("testing "+w,expected , BiggerIsGreater.biggerIsGreater(w));
 
 
             }

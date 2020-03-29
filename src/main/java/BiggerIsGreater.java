@@ -8,10 +8,10 @@ public class BiggerIsGreater {
 
 
         // Creating array and Storing the array
-        // returned by toCharArray() 
+        // returned by toCharArray()
         char[] ch = w.toCharArray();
 
-        // loop through from right to left and swipe any letter that is larger than 
+        // loop through from right to left and swipe any letter that is larger than
         // the current right most element in the loop
 
         int len = ch.length;
@@ -19,43 +19,45 @@ public class BiggerIsGreater {
         int pos = len-1;
 
         String answer;
-        boolean hasSwapped = false;
+        boolean toSwap = false;
 
-        for(int j = len-1; j>=0; j--)
-        {
+//        for(int j = len-1; j>=0; j--)
+//        {
 
-            for(int i = j-1; i >= 0; i--)
+            for(int cur = len-1; cur> 0; cur--)
             {
 
-                if(ch[pos]>ch[i]){
-                    char temp = ch[pos];
-                    // swap
+                if(ch[cur]>ch[cur-1]){
 
-
-                    ch[pos] = ch[i];
-                    ch[i] = temp;
-                    hasSwapped = true;
-                    pos = i;
+                    toSwap = true;
+                    pos = cur;
                     break;// break out of the inner loop
 
                 }
 
             }
-            if(hasSwapped) {
-                break;// break out of the outer loop
-            }  else {
-                pos = j-1;
-            }
-
-        }
 
 
 
-        if(!hasSwapped){
+
+        if(!toSwap){
             return "no answer";
         } else {
+            int biggerSmllerItemIdx = pos;
+            // look for smallest item on the right that is larger than element at pos-1 and swap
+            for(int smlItemIdx = pos+1; smlItemIdx<len; smlItemIdx++){
+                if(ch[smlItemIdx]>ch[pos-1] && ch[smlItemIdx]<ch[biggerSmllerItemIdx]){
+
+                    biggerSmllerItemIdx = smlItemIdx;
+
+                }
+            }
+            // swap
+            char temp = ch[biggerSmllerItemIdx];
+            ch[biggerSmllerItemIdx] = ch[pos-1];
+            ch[pos-1] = temp;
             // sort everything right of pos in assending order
-            int beg = pos + 1;
+            int beg = pos;
             int end = len; // for readability
             char[] subArr = Arrays.copyOfRange(ch, beg, end);
 
@@ -97,7 +99,7 @@ public class BiggerIsGreater {
 
                 String result = biggerIsGreater(w);
 
-//                System.out.println(result);
+                System.out.println(result);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
